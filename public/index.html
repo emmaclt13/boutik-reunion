@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop Île de la Réunion 974</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HERO / HEADER -->
+  <header class="hero">
+    <nav class="navbar">
+      <h1>SHOP ÎLE DE LA RÉUNION 974</h1>
+      <div class="nav-links">
+        <a href="#produit">Produit</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- SECTION PRODUIT -->
+  <section id="produit" class="section product-preview">
+  <img src="images/produit.jpg" alt="Produit">
+  <h2>Régulateur De Gaz À Haute Pression, avec flexible 2 mètres</h2>
+  <p class="price">Prix : <strong>50,00 €</strong></p>
+   <p class="stock">
+    <span id="stock-count">75</span> pièces en stock restantes
+  </p>
+</section>
+
+
+  <!-- DESCRIPTION -->
+  <section class="section description">
+    <div class="desc-content">
+      <h2>Description du produit</h2>
+      <p>
+        Model H30-1.5 bar<br>
+        SORTIE: G3/8〞-LH<br>
+        CAPACITÉ: 8.0KG/H<br>
+        PRESSION DE SORTIE : 1.5BAR
+      </p>
+      <p>
+        Compatible : feu chinois / trepied, feu professionnel.
+      </p>
+    </div>
+    <img src="images/feu.jpg" alt="Produit détail">
+  </section>
+
+  <!-- VIDEO PRODUIT -->
+<video 
+  controls 
+  style="
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 40px auto;
+    border-radius: 12px;
+  ">
+  <source src="videos/fire.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la vidéo.
+</video>
+
+
+  <!-- LIVRAISON -->
+  <section class="livraison">
+    <h2>Livraison</h2>
+    <p>Les commandes sont préparées avec soin après validation du paiement.</p>
+    <p>📦 <strong>La livraison est assurée exclusivement par La Poste</strong>, à l’adresse fournie par le client lors de la commande.</p>
+    <p>Les délais de livraison peuvent varier selon la destination.</p>
+  </section>
+
+  <!-- COMMANDE -->
+  <section class="section order">
+    <h2>Commander le produit</h2>
+    <p>Paiement sécurisé en ligne</p>
+    <button id="checkout-button">Commander maintenant</button>
+  </section>
+
+  <!-- SCRIPT STRIPE -->
+  <script>
+    const button = document.getElementById("checkout-button");
+
+    button.addEventListener("click", async () => {
+      try {
+        fetch("https://TON-SERVEUR.onrender.com/create-checkout-session", {
+
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await res.json();
+
+        if (data.url) {
+          window.location.href = data.url; // redirection vers Stripe
+        } else {
+          console.error("Erreur session Stripe :", data.error);
+          alert("Impossible de créer la session de paiement : " + data.error);
+        }
+      } catch (err) {
+        console.error("Erreur fetch :", err);
+        alert("Impossible de contacter le serveur");
+      }
+    });
+  </script>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <h2>Contact & Service après-vente</h2>
+    <p>Pour toute question concernant la commande ou la livraison :</p>
+    <p class="email">📧 reunionbonplan@gmail.com</p>
+    <p class="téléphone">📞 0693400246</p>
+    <p>
+      Sainte-Suzanne 97441 <br>
+      Île de la Réunion
+    </p>
+  </section>
+
+</body>
+</html>
