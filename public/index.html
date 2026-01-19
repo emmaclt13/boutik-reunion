@@ -86,31 +86,35 @@
   </section>
 
   <!-- SCRIPT STRIPE -->
-  <script>
-    const button = document.getElementById("checkout-button");
+ <script>
+  const button = document.getElementById("checkout-button");
 
-    button.addEventListener("click", async () => {
-      try {
-        fetch("https://TON-SERVEUR.onrender.com/create-checkout-session", {
-
+  button.addEventListener("click", async () => {
+    try {
+      const res = await fetch(
+        "https://boutik-reunion.onrender.com/create-checkout-session",
+        {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-        });
-
-        const data = await res.json();
-
-        if (data.url) {
-          window.location.href = data.url; // redirection vers Stripe
-        } else {
-          console.error("Erreur session Stripe :", data.error);
-          alert("Impossible de créer la session de paiement : " + data.error);
+          headers: {
+            "Content-Type": "application/json"
+          }
         }
-      } catch (err) {
-        console.error("Erreur fetch :", err);
-        alert("Impossible de contacter le serveur");
+      );
+
+      const data = await res.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Erreur Stripe : " + data.error);
       }
-    });
-  </script>
+    } catch (err) {
+      console.error(err);
+      alert("Erreur serveur");
+    }
+  });
+</script>
+
 
   <!-- CONTACT -->
   <section id="contact" class="section contact">

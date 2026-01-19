@@ -1,3 +1,5 @@
+console.log("STRIPE KEY:", process.env.STRIPE_SECRET_KEY);
+
 require("dotenv").config();
 
 const express = require("express");
