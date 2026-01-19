@@ -1,16 +1,20 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Render utilise SON port
 const PORT = process.env.PORT || 3000;
 
-console.log("🔥 SERVER STRIPE RUNNING 🔥");
-
-// Middleware
+// MIDDLEWARES
+app.use(cors({
+  origin: "https://shopreunion974.netlify.app"
+}));
 app.use(express.json());
+
+console.log("🔥 SERVER STRIPE RUNNING 🔥");
 
 // Test serveur
 app.get("/", (req, res) => {
@@ -36,7 +40,7 @@ app.post("/create-checkout-session", async (req, res) => {
             product_data: {
               name: "Régulateur de gaz haute pression",
             },
-            unit_amount: 5000, // 50€
+            unit_amount: 5000,
           },
           quantity: 1,
         },
